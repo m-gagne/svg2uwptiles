@@ -1,6 +1,6 @@
 {
   "name": "svg2uwptiles",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Helper utility to convert an SVG file to the various PNGs required for UWP applications.",
   "keywords": [
     "uwp",
@@ -12,7 +12,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tj/commander.js.git"
+    "url": "https://github.com/m-gagne/svg2uwptiles"
   },
   "devDependencies": {
     "should": ">= 0.0.1 <9.0.0",
