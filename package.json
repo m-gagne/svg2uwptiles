@@ -1,6 +1,6 @@
 {
   "name": "svg2uwptiles",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Helper utility to convert an SVG file to the various PNGs required for UWP applications.",
   "keywords": [
     "uwp",
