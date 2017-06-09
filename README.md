@@ -2,6 +2,8 @@
 
 This utility takes as input an SVG file (preferrably on a transparent background) which will be resized/padded etc. into the various [UWP Tile & Icon assets](https://docs.microsoft.com/en-us/windows/uwp/controls-and-patterns/tiles-and-notifications-app-assets).
 
+![UWP Generated Logos & Tiles](https://mgagne.blob.core.windows.net/public/uwp_logos_tiles.PNG)
+
 But wait, can't you just use the [Auto-generate visual assets for your UWP apps](https://blogs.windows.com/buildingapps/2017/03/07/visual-studio-2017-now-ready-windows-application-development-needs/#ELgkBgKoWGSGx8cs.97) feature found in Visual Studio 2017? YES you can and it's great! I created this for those who don't have/want to install Visual Studio to generate these as well as to provide a little more flexability/customziation, and to learn about how the Logos/Tiles are used.
 
 ## Installation
