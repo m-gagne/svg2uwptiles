@@ -31,7 +31,9 @@ program
   .option('-u, --include-unplated <true|false>', 'Boolean indicating if unplated tiles (for taskbar icons) should be includes, default: true', true)
   .parse(process.argv)
 
-if (!program.iconFile) {
+const options = program.opts();
+
+if (!options.iconFile) {
   return program.outputHelp();
 }
 
@@ -57,22 +59,22 @@ const assets = {
       width: 150,
       height: 150,
       elementName: "MedTile",
-      paddingRatioWidth: !program.namesInTiles ? 0.75 : 0.5,
-      paddingRatioHeight: !program.namesInTiles ? 0.75 : 0.5
+      paddingRatioWidth: !options.namesInTiles ? 0.75 : 0.5,
+      paddingRatioHeight: !options.namesInTiles ? 0.75 : 0.5
     },
     { // Wide310x150
       width: 310,
       height: 150,
       elementName: "Wide310x150Logo",
-      paddingRatioWidth: !program.namesInTiles ? 0.75 : 0.5,
-      paddingRatioHeight: !program.namesInTiles ? 0.75 : 0.5
+      paddingRatioWidth: !options.namesInTiles ? 0.75 : 0.5,
+      paddingRatioHeight: !options.namesInTiles ? 0.75 : 0.5
     },
     { // Large
       width: 310,
       height: 310,
       elementName: "LargeTile",
-      paddingRatioWidth: !program.namesInTiles ? 0.75 : 0.5,
-      paddingRatioHeight: !program.namesInTiles ? 0.75 : 0.5
+      paddingRatioWidth: !options.namesInTiles ? 0.75 : 0.5,
+      paddingRatioHeight: !options.namesInTiles ? 0.75 : 0.5
     },
     { // Splash
       width: 620,
@@ -86,15 +88,15 @@ const assets = {
       elementName: "Square44x44Logo",
       targets: [16, 24, 32, 48, 256, 20, 30, 26, 40, 60, 64, 72, 80, 96],
       unplated: true,
-      paddingRatioWidth: !program.namesInTiles ? 0.75 : 0.5,
-      paddingRatioHeight: !program.namesInTiles ? 0.75 : 0.5
+      paddingRatioWidth: !options.namesInTiles ? 0.75 : 0.5,
+      paddingRatioHeight: !options.namesInTiles ? 0.75 : 0.5
     },
     { // Square150x150
       width: 150,
       height: 150,
       elementName: "Square150x150Logo",
-      paddingRatioWidth: !program.namesInTiles ? 0.75 : 0.5,
-      paddingRatioHeight: !program.namesInTiles ? 0.75 : 0.5
+      paddingRatioWidth: !options.namesInTiles ? 0.75 : 0.5,
+      paddingRatioHeight: !options.namesInTiles ? 0.75 : 0.5
     },
     { // StoreLogo
       width: 50,
@@ -108,14 +110,14 @@ const assets = {
 };
 
 // Verify output folder
-if (!fs.existsSync(program.outputFolder)){
-    fs.mkdirSync(program.outputFolder);
+if (!fs.existsSync(options.outputFolder)){
+    fs.mkdirSync(options.outputFolder);
 }
 
-fs.readFile(program.canvasFile)
+fs.readFile(options.canvasFile)
   .then((buffer) => {
     buffers.canvas = buffer;
-    return fs.readFile(program.iconFile)
+    return fs.readFile(options.iconFile)
   })
   .then((buffer) => {
     buffers.overlay = buffer;
@@ -169,17 +171,17 @@ function generateScales() {
 
   assets.categories.forEach((category) => {
     if (category.generateNonScaled) {
-      promises.push(scaleToSize(program.outputFolder + "/" + category.elementName + ".png", category.width, category.height, category.paddingRatioWidth, category.paddingRatioHeight));
+      promises.push(scaleToSize(options.outputFolder + "/" + category.elementName + ".png", category.width, category.height, category.paddingRatioWidth, category.paddingRatioHeight));
     }
     assets.scales.forEach((multiplier) => {
-      promises.push(scaleToSize(program.outputFolder + "/" + category.elementName + ".scale-" + (multiplier * 100) + ".png", category.width * multiplier, category.height * multiplier, category.paddingRatioWidth, category.paddingRatioHeight));
+      promises.push(scaleToSize(options.outputFolder + "/" + category.elementName + ".scale-" + (multiplier * 100) + ".png", category.width * multiplier, category.height * multiplier, category.paddingRatioWidth, category.paddingRatioHeight));
     });
     if (category.targets) {
       category.targets.forEach((target) => {
-        promises.push(scaleToSize(program.outputFolder + "/" + category.elementName + ".targetsize-" + target + ".png", target, target, 1, 1));
+        promises.push(scaleToSize(options.outputFolder + "/" + category.elementName + ".targetsize-" + target + ".png", target, target, 1, 1));
 
-        if (category.unplated && program.includeUnplated) {
-          promises.push(scaleToSize(program.outputFolder + "/" + category.elementName + ".targetsize-" + target + "_altform-unplated.png", target, target, 1, 1));
+        if (category.unplated && options.includeUnplated) {
+          promises.push(scaleToSize(options.outputFolder + "/" + category.elementName + ".targetsize-" + target + "_altform-unplated.png", target, target, 1, 1));
         }
       });
     }
