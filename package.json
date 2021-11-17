@@ -29,9 +29,9 @@
     "index.js"
   ],
   "dependencies": {
-    "commander": "^2.9.0",
-    "pn": "^1.0.0",
-    "sharp": "^0.18.1"
+    "commander": "^8.3.0",
+    "pn": "^1.1.0",
+    "sharp": "^0.29.3"
   },
   "preferGlobal": true,
   "bin": {
