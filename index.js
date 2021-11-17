@@ -144,16 +144,12 @@ function scaleToSize(outFilename, width, height, paddingRatioWidth, paddingRatio
     console.log("File: '" + outFilename + "', canvas WxH: " + width + "x" + height + ", overlay WxH: " + overlayWidth + "x" + overlayHeight + ", leftxtop: " + left + "x" + top);
 
     sharp(buffers.overlay)
-      .resize(overlayWidth, overlayHeight)
-      .background({r: 0, g: 0, b: 0, alpha: 0})
-      .embed()
+      .resize({width: overlayWidth, height: overlayHeight, fit: 'contain', background: {r: 0, g: 0, b: 0, alpha: 0}})
       .toBuffer()
       .then((resizedOverlayBuffer) => {
         sharp(buffers.canvas)
-          .resize(width, height)
-          .background({r: 0, g: 0, b: 0, alpha: 0})
-          .embed()
-          .overlayWith(resizedOverlayBuffer, {left: left, top: top})
+          .resize({width, height, fit: 'contain', background: {r: 0, g: 0, b: 0, alpha: 0}})
+          .composite([{input: resizedOverlayBuffer, left: left, top: top}])
           .toFile(outFilename, function(err) {
             if (err) {
               reject(err);
